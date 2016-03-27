@@ -29,7 +29,7 @@ LEFT JOIN Books
 ON Authors.authorId=Books.authorId
 GROUP BY name;
 
--- 3.e. punktas, neitraukiant autoriu su knygom
+-- 3.e. punktas, neitraukiant autoriu be knygu
 
 SELECT name, COUNT(Books.bookId) AS "knygu skaicius"
 FROM Authors
