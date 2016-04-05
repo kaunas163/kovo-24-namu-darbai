@@ -1,4 +1,4 @@
-<?php include("repository.php"); ?>
+<?php include("Repository.php"); ?>
 
 <!DOCTYPE html>
 <html lang="lt">
@@ -17,6 +17,8 @@
 
         $rep = new Repository();
         $books = $rep->getAllBooks();
+
+        print_r($books);
 
         foreach ($books as $book)
         {

@@ -6,22 +6,13 @@
  * Time: 17.53
  */
 
+include("Database.php");
 include("BookClass.php");
 
 class Repository
 {
     public function getAllBooks()
     {
-        $servername = "localhost";
-        $username = "root";
-        $password = "123";
-        $database = "DB_ND";
-        $conn = new mysqli($servername, $username, $password, $database);
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
         $sql = "SELECT
                     GROUP_CONCAT(`authors`. NAME) AS autoriai,
                     `books`.title AS knyga,
@@ -34,7 +25,8 @@ class Repository
                 JOIN `books` ON `authors_and_books`.bookId = `books`.bookId
                 GROUP BY `books`.`title`";
 
-        $result = $conn->query($sql);
+        $connection = new MyDatabase();
+        $result = $connection->DoQuery($sql);
 
         $book = new Book();
 
@@ -55,16 +47,6 @@ class Repository
 
     public function getById($id)
     {
-        $servername = "localhost";
-        $username = "root";
-        $password = "123";
-        $database = "DB_ND";
-        $conn = new mysqli($servername, $username, $password, $database);
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
         $sql = "SELECT
                     GROUP_CONCAT(`authors`. NAME) AS autoriai,
                     `books`.title AS knyga,
@@ -80,7 +62,8 @@ class Repository
             $sql.="WHERE `books`.`bookId`=$id ";
         $sql.="GROUP BY `books`.`title`";
 
-        $result = $conn->query($sql);
+        $connection = new MyDatabase();
+        $result = $connection->DoQuery($sql);
 
         $book = new Book();
 
