@@ -1,0 +1,100 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: ieva
+ * Date: 16.4.5
+ * Time: 17.53
+ */
+
+include("BookClass.php");
+
+class Repository
+{
+    public function getAllBooks()
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "123";
+        $database = "DB_ND";
+        $conn = new mysqli($servername, $username, $password, $database);
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT
+                    GROUP_CONCAT(`authors`. NAME) AS autoriai,
+                    `books`.title AS knyga,
+                    `books`.`year`,
+                    `books`.`genre`,
+                    `books`.`bookId`
+                FROM
+                    `authors`
+                JOIN `authors_and_books` ON `authors`.authorId = `authors_and_books`.authorId
+                JOIN `books` ON `authors_and_books`.bookId = `books`.bookId
+                GROUP BY `books`.`title`";
+
+        $result = $conn->query($sql);
+
+        $book = new Book();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $book->setBookId($row["bookId"]);
+                $book->setTitle($row["knyga"]);
+                $book->setYear($row["year"]);
+                $book->setGenre($row["genre"]);
+                $book->setAuthors($row["autoriai"]);
+                $book->setOriginalTitle($row["original_title"]);
+                $books[] = $book;
+            }
+        }
+
+        return $books;
+    }
+
+    public function getById($id)
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "123";
+        $database = "DB_ND";
+        $conn = new mysqli($servername, $username, $password, $database);
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT
+                    GROUP_CONCAT(`authors`. NAME) AS autoriai,
+                    `books`.title AS knyga,
+                    `books`.`year`,
+                    `books`.`genre`,
+                    `books`.`bookId`
+                FROM
+                    `authors`
+                JOIN `authors_and_books` ON `authors`.authorId = `authors_and_books`.authorId
+                JOIN `books` ON `authors_and_books`.bookId = `books`.bookId ";
+
+        if($id)
+            $sql.="WHERE `books`.`bookId`=$id ";
+        $sql.="GROUP BY `books`.`title`";
+
+        $result = $conn->query($sql);
+
+        $book = new Book();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $book->setBookId($row["bookId"]);
+                $book->setTitle($row["knyga"]);
+                $book->setYear($row["year"]);
+                $book->setGenre($row["genre"]);
+                $book->setAuthors($row["autoriai"]);
+                $book->setOriginalTitle($row["original_title"]);
+            }
+        }
+
+        return $book;
+    }
+};
