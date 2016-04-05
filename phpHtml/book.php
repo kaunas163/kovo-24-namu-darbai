@@ -27,6 +27,7 @@
                         `books`.title AS knyga,
                         `books`.`year`,
                         `books`.`genre`,
+                        `books`.`original_title`,
                         `books`.`bookId`
                     FROM
                         `authors`
@@ -45,6 +46,7 @@
                     echo "<p>Autoriai: ".$row["autoriai"]."</p>";
                     echo "<p>Metai: ".$row["year"]."</p>";
                     echo "<p>Žanras: ".$row["genre"]."</p>";
+                    echo "<p>Originalus pavadinimas: ".$row["original_title"]."</p>";
                 }
             } else {
                 echo "Knygos rasti nepavyko";

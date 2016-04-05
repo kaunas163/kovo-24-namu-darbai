@@ -20,6 +20,7 @@
                     <th>Autoriai</th>
                     <th>Metai</th>
                     <th>Žanras</th>
+                    <th>Originalus pavadinimas</th>
                 </tr>
             </thead>
 
@@ -31,6 +32,7 @@
                                 `books`.title AS knyga,
                                 `books`.`year`,
                                 `books`.`genre`,
+                                `books`.`original_title`,
 	                            `books`.`bookId`
                             FROM
                                 `authors`
@@ -48,6 +50,7 @@
                             echo "<td>".$row["autoriai"]."</td>";
                             echo "<td>".$row["year"]."</td>";
                             echo "<td>".$row["genre"]."</td>";
+                            echo "<td>".$row["original_title"]."</td>";
                             echo "</tr>";
                         }
                     } else {
