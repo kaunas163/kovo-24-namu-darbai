@@ -2,7 +2,7 @@
 
 class MyDatabase
 {
-    public function ConnectToDatabase()
+    public function DoQuery($sql)
     {
         $servername = "localhost";
         $username = "root";
@@ -15,12 +15,20 @@ class MyDatabase
             die("Connection failed: " . $conn->connect_error);
         }
 
-        return $conn;
-    }
+//        if ($result = $conn->query($sql))
+//        {
+//            $conn->close();
+//            return $result->fetch_fields();
+//        }
 
-    public function DoQuery($sql)
-    {
-        $conn = $this->ConnectToDatabase();
-        return $conn->query($sql);
+
+
+//        $result = $conn->query($sql);
+//        $books = $result->fetch_all();
+//
+//        foreach ($books as $book)
+//        {
+//            $book->setAuthor = $book["autoriai"];
+//        }
     }
 };

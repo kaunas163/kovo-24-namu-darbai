@@ -10,28 +10,42 @@
 <body>
 <div class="container">
     <div class="jumbotron">
-        <h1>Visos knygos</h1>
+        <h1>Knygų sąrašas</h1>
     </div>
 
-    <?php
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Knygos pavadinimas</th>
+            <th>Autoriai</th>
+            <th>Metai</th>
+            <th>Žanras</th>
+            <th>Originalus pavadinimas</th>
+        </tr>
+        </thead>
 
-        $rep = new Repository();
-        $books = $rep->getAllBooks();
+        <tbody>
 
-        print_r($books);
+            <?php
 
-        foreach ($books as $book)
-        {
-            echo $book->getTitle() . "<br>";
-            echo $book->getAuthors() . "<br>";
-            echo $book->getGenre() . "<br>";
-            echo $book->getOriginalTitle() . "<br>";
-            echo $book->getYear() . "<br>";
-        }
+                $rep = new Repository();
+                $books = $rep->getAllBooks();
 
-        echo "hi?";
+                foreach ($books as $book)
+                {
+                    echo "<tr>".
+                        "<td><a href=\"BookPage.php?id=".$book->getBookId()."\">".$book->getTitle()."</a></td>".
+                        "<td>".$book->getAuthors()."</td>".
+                        "<td>".$book->getGenre()."</td>".
+                        "<td>".$book->getOriginalTitle()."</td>".
+                        "<td>".$book->getYear()."</td>".
+                        "</tr>";
+                }
 
-    ?>
+            ?>
+
+        </tbody>
+    </table>
 
 </div>
 </body>

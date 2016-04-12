@@ -18,6 +18,7 @@ class Repository
                     `books`.title AS knyga,
                     `books`.`year`,
                     `books`.`genre`,
+                    `books`.`original_title`,
                     `books`.`bookId`
                 FROM
                     `authors`
@@ -26,21 +27,21 @@ class Repository
                 GROUP BY `books`.`title`";
 
         $connection = new MyDatabase();
-        $result = $connection->DoQuery($sql);
+        $books = $connection->DoQuery($sql);
 
-        $book = new Book();
+        print_r($books);
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $book->setBookId($row["bookId"]);
-                $book->setTitle($row["knyga"]);
-                $book->setYear($row["year"]);
-                $book->setGenre($row["genre"]);
-                $book->setAuthors($row["autoriai"]);
-                $book->setOriginalTitle($row["original_title"]);
-                $books[] = $book;
-            }
-        }
+//        if ($result->num_rows > 0) {
+//            while ($row = $result->fetch_assoc()) {
+//                $book->setBookId($row["bookId"]);
+//                $book->setTitle($row["knyga"]);
+//                $book->setYear($row["year"]);
+//                $book->setGenre($row["genre"]);
+//                $book->setAuthors($row["autoriai"]);
+//                $book->setOriginalTitle($row["original_title"]);
+//                $books[] = $book;
+//            }
+//        }
 
         return $books;
     }
@@ -52,6 +53,7 @@ class Repository
                     `books`.title AS knyga,
                     `books`.`year`,
                     `books`.`genre`,
+                    `books`.`original_title`,
                     `books`.`bookId`
                 FROM
                     `authors`
