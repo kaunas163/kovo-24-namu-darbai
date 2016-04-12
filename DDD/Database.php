@@ -15,19 +15,6 @@ class MyDatabase
             die("Connection failed: " . $conn->connect_error);
         }
 
-//        if ($result = )
-//        {
-            return $conn->query($sql);
-//        }
-
-
-
-//        $result = $conn->query($sql);
-//        $books = $result->fetch_all();
-//
-//        foreach ($books as $book)
-//        {
-//            $book->setAuthor = $book["autoriai"];
-//        }
+        return $conn->query($sql);
     }
 };

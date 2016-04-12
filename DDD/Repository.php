@@ -31,6 +31,7 @@ class Repository
 
         $book = new Book();
 
+
         if ($books->num_rows > 0) {
             while ($row = $books->fetch_assoc()) {
                 $book->setBookId($row["bookId"]);
