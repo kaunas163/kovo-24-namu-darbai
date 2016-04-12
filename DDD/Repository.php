@@ -29,15 +29,17 @@ class Repository
         $connection = new MyDatabase();
         $books = $connection->DoQuery($sql);
 
+        $book = new Book();
+
         if ($books->num_rows > 0) {
             while ($row = $books->fetch_assoc()) {
-                $this->setBookId($row["bookId"]);
-                $this->setTitle($row["knyga"]);
-                $this->setYear($row["year"]);
-                $this->setGenre($row["genre"]);
-                $this->setAuthors($row["autoriai"]);
-                $this->setOriginalTitle($row["original_title"]);
-                $books[] = $this;
+                $book->setBookId($row["bookId"]);
+                $book->setTitle($row["knyga"]);
+                $book->setYear($row["year"]);
+                $book->setGenre($row["genre"]);
+                $book->setAuthors($row["autoriai"]);
+                $book->setOriginalTitle($row["original_title"]);
+                $books[] = $book;
             }
         }
 

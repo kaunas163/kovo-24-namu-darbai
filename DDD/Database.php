@@ -15,10 +15,10 @@ class MyDatabase
             die("Connection failed: " . $conn->connect_error);
         }
 
-        if ($result = $conn->query($sql))
-        {
-            return $result->fetch_all();
-        }
+//        if ($result = )
+//        {
+            return $conn->query($sql);
+//        }
 
 
 
