@@ -18,9 +18,9 @@
         <tr>
             <th>Knygos pavadinimas</th>
             <th>Autoriai</th>
-            <th>Metai</th>
-            <th>Žanras</th>
             <th>Originalus pavadinimas</th>
+            <th>Žanras</th>
+            <th>Metai</th>
         </tr>
         </thead>
 
@@ -29,7 +29,7 @@
             <?php
 
                 $rep = new Repository();
-                $books[] = $rep->getAllBooks();
+                $books = $rep->getAllBooks();
 
                 foreach ($books as $book)
                 {

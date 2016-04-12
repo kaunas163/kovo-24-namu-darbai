@@ -27,21 +27,18 @@ class Repository
                 GROUP BY `books`.`title`";
 
         $connection = new MyDatabase();
-        $books = $connection->DoQuery($sql);
+        $booksData = $connection->DoQuery($sql);
+        $booksData = $booksData->fetch_all();
 
-        $book = new Book();
-
-
-        if ($books->num_rows > 0) {
-            while ($row = $books->fetch_assoc()) {
-                $book->setBookId($row["bookId"]);
-                $book->setTitle($row["knyga"]);
-                $book->setYear($row["year"]);
-                $book->setGenre($row["genre"]);
-                $book->setAuthors($row["autoriai"]);
-                $book->setOriginalTitle($row["original_title"]);
-                $books[] = $book;
-            }
+        foreach ($booksData as $data) {
+            $book = new Book();
+            $book->setBookId($data[5]);
+            $book->setTitle($data[1]);
+            $book->setYear($data[2]);
+            $book->setGenre($data[4]);
+            $book->setAuthors($data[0]);
+            $book->setOriginalTitle($data[3]);
+            $books[] = $book;
         }
 
         return $books;
