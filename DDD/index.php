@@ -29,7 +29,7 @@
             <?php
 
                 $rep = new Repository();
-                $books = $rep->getAllBooks();
+                $books[] = $rep->getAllBooks();
 
                 foreach ($books as $book)
                 {
