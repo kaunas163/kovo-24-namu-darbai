@@ -1,5 +1,7 @@
 <?php
 
+include ('db.php');
+
 class Book
 {
     protected $bookId;
@@ -96,19 +98,6 @@ class Book
 
     public function Load($objectNumber)
     {
-        $servername = "localhost";
-        $username = "root";
-        $password = "123";
-        $database = "DB_ND";
-
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $database);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
         $sql = "SELECT
                     GROUP_CONCAT(`authors`. NAME) AS autoriai,
                     `books`.title AS knyga,
@@ -124,7 +113,8 @@ class Book
             $sql.="WHERE `books`.`bookId`=$objectNumber ";
         $sql.="GROUP BY `books`.`title`";
 
-        $result = $conn->query($sql);
+        $database = new MyDatabase();
+        $result = $database->DoQuery($sql);
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
